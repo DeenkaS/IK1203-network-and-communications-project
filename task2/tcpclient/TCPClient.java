@@ -16,23 +16,28 @@ public class TCPClient {
 
     public byte[] askServer(String hostname, int port, byte[] toServerBytes) throws IOException {
         Socket client = new Socket(hostname, port);
-        if(this.timeout != null)
-        client.setSoTimeout(this.timeout);
+        if(this.timeout != null){
+            client.setSoTimeout(this.timeout);
+        }
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
+        output.toByteArray();
+        
+        client.getOutputStream().write(toServerBytes);
+        if (this.shutdown) {
+            client.shutdownOutput();
+        }
+        
         try {
-            output.toByteArray();
-
-            client.getOutputStream().write(toServerBytes);
-            if (this.shutdown) {
-                client.shutdownOutput();
-            }
-
             if (limit != null) {
 
                 output.write(client.getInputStream().readNBytes(this.limit));
             } else {
-                output.write(client.getInputStream().readAllBytes());
+                byte[] b = new byte[1];
+                while(client.getInputStream().read(b) != -1){
+                    output.write(b);
+                    //System.out.println("hejhej");
+                }
             }
 
         } catch (SocketTimeoutException e) {
