@@ -20,20 +20,20 @@ public class HTTPAsk {
                 String request = new String(output.toString());
 
                 String splitRequestArray[] = request.split("[ ?=&]");
-                /*
-                 * for(int j = 0; j < splitRequestArray.length; j++){
-                 * System.out.println(splitRequestArray[j]);
-                 * }
-                 */
+
+                for (int j = 0; j < splitRequestArray.length; j++) {
+                    System.out.println(splitRequestArray[j]);
+                }
+
                 if (!splitRequestArray[0].equals("GET")) {
-                    System.out.println("Bad request");
+                    System.out.println("Bad request1");
                     outStream.write("HTTP/1.1 400 Bad request \r\n\r\n".getBytes());
                     socket.close();
                     return;
                 }
 
-                if (!splitRequestArray[0].equals("/ask")) {
-                    System.out.println("Bad request");
+                if (!splitRequestArray[1].equals("/ask")) {
+                    System.out.println("Bad request2");
                     outStream.write("HTTP/1.1 404 Object not found \r\n\r\n".getBytes());
                     socket.close();
                     return;
@@ -49,7 +49,7 @@ public class HTTPAsk {
                 System.out.println(hostname);
 
                 if (hostname.equals(null)) {
-                    System.out.println("Bad request");
+                    System.out.println("Bad request3");
                     outStream.write("HTTP/1.1 404 Object not found \r\n\r\n".getBytes());
                     socket.close();
                     return;
@@ -62,8 +62,6 @@ public class HTTPAsk {
                 outStream.write(("Content-length" + message.length() + "\r\n").getBytes());
                 outStream.write(("Content-type text/plain \r\n\r\n").getBytes());
                 outStream.write((message + "\r\n\r\n").getBytes());
-
-                outStream.write("HTTP/1.1 404 Not found \r\n\r\n".getBytes());
             }
     }
 
