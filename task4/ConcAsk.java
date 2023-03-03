@@ -69,7 +69,7 @@ public class ConcAsk extends Thread {
             outStream.write((message).getBytes());
             outStream.flush();
         } catch (Exception e) {
-
+            System.out.println(e);
         }
     }
 
