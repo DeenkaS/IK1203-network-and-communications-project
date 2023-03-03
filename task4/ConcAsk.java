@@ -9,7 +9,7 @@ public class ConcAsk extends Thread {
     }
 
     @Override
-    public void run() {
+    public void start() {
         try {
             InputStream inStream = pSocket.getInputStream();
             OutputStream outStream = pSocket.getOutputStream();
