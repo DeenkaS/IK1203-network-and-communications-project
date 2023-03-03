@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class ConcAsk extends Thread {
+public class ConcAsk implements Runnable {
     Socket pSocket;
 
     public ConcAsk(Socket pSocket) {
@@ -9,7 +9,7 @@ public class ConcAsk extends Thread {
     }
 
     @Override
-    public void start() {
+    public void run() {
         try {
             InputStream inStream = pSocket.getInputStream();
             OutputStream outStream = pSocket.getOutputStream();
